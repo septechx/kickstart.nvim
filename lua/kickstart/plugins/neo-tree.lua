@@ -11,7 +11,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '\\', ':Neotree reveal right<CR>', desc = 'NeoTree reveal', silent = true },
   },
   opts = {
     filesystem = {
@@ -22,4 +22,10 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require('neo-tree').setup(opts)
+
+    vim.cmd 'highlight NeoTreeNormal guibg=none'
+    vim.cmd 'highlight NeoTreeNormalNC guibg=none'
+  end,
 }
