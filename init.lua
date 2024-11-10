@@ -98,6 +98,8 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+vim.opt.termguicolors = true
+
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -209,8 +211,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 -- Load config directory
-require 'custom.config.bash-lsp'
 require 'custom.config.hyprlang'
+require 'custom.config.bash'
 
 -- Import organizer
 local function organize_imports()
@@ -691,8 +693,9 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'bash-language-server',
         'prettierd',
+        'bash-language-server',
+        'shfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
