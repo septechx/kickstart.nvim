@@ -697,6 +697,9 @@ require('lazy').setup({
         'bash-language-server',
         'shfmt',
       })
+      ensure_installed = vim.tbl_filter(function(item)
+        return item ~= 'zls'
+      end, ensure_installed)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
