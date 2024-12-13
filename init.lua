@@ -213,6 +213,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Load config directory
 require 'custom.config.hyprlang'
 require 'custom.config.bash'
+require 'custom.config.keymaps'
 
 -- Import organizer
 local function organize_imports()
@@ -714,6 +715,11 @@ require('lazy').setup({
           end,
         },
       }
+
+      -- Enable zls because it was excluded from mason
+      local zls_server = servers.zls
+      zls_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, zls_server.capabilities or {})
+      require('lspconfig')['zls'].setup(zls_server)
     end,
   },
 
