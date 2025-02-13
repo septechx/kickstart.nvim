@@ -145,5 +145,22 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    dap.configurations.zig = {
+      {
+        name = 'Run Zig binary with args',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.getcwd() .. '/zig-out/bin/' .. vim.fn.input 'Executable name: '
+        end,
+        args = function()
+          local input_args = vim.fn.input 'Arguments: '
+          return vim.split(input_args, ' ')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+      },
+    }
   end,
 }
