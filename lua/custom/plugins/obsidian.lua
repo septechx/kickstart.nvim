@@ -1,28 +1,34 @@
 return {
-  'epwalsh/obsidian.nvim',
+  'obsidian-nvim/obsidian.nvim',
   version = '*', -- recommended, use latest release instead of latest commit
   lazy = true,
-  -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  event = {
-    -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-    -- refer to `:h file-pattern` for more examples
-    'BufReadPre /run/media/sep/BIGSSD/obsidian/Deez\\ Notes\\ 2/*.md',
-    'BufNewFile /run/media/sep/BIGSSD/obsidian/Deez\\ Notes\\ 2/*.md',
-  },
+  ft = 'markdown',
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
+  ---@module 'obsidian'
+  ---@type obsidian.config
   opts = {
     workspaces = {
       {
-        name = 'personal',
-        path = '/run/media/sep/BIGSSD/obsidian/Deez\\ Notes\\ 2',
+        name = 'Deez Notes 2',
+        path = '/run/media/sep/BIGSSD/obsidian/Deez Notes 2',
       },
     },
 
     daily_notes = {
-      folder = 'Daily\\ Notes',
+      folder = 'Daily Notes',
     },
   },
+  config = function(_, opts)
+    require('obsidian').setup(opts)
+
+    -- Set conceallevel to 1 for markdown files opened by obsidian.nvim
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'markdown',
+      callback = function()
+        vim.opt_local.conceallevel = 1
+      end,
+    })
+  end,
 }
