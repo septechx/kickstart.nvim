@@ -737,7 +737,7 @@ require('lazy').setup({
         tailwindcss = {},
         eslint = {},
         luau_lsp = {},
-        rust_analyzer = {},
+        -- rust_analyzer = {},
       }
 
       -- Ensure the servers and tools above are installed
