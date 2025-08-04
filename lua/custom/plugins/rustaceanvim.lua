@@ -3,9 +3,7 @@ return {
   version = '^6',
   lazy = false,
   config = function()
-    local mason_registry = require 'mason-registry'
-    local codelldb = mason_registry.get_package 'codelldb'
-    local extension_path = codelldb:get_install_path() .. '/extension/'
+    local extension_path = '$MASON/extension/'
     local codelldb_path = extension_path .. 'adapter/codelldb'
     local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
     local cfg = require 'rustaceanvim.config'
