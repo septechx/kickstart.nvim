@@ -23,7 +23,6 @@ return {
   config = function(_, opts)
     require('obsidian').setup(opts)
 
-    -- Set conceallevel to 1 for markdown files opened by obsidian.nvim
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'markdown',
       callback = function()
