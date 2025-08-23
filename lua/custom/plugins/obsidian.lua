@@ -16,6 +16,8 @@ return {
       },
     },
 
+    legacy_commands = false,
+
     daily_notes = {
       folder = 'Daily Notes',
     },
