@@ -739,6 +739,12 @@ require('lazy').setup({
         eslint = {},
         luau_lsp = {},
         clangd = {},
+        tinymist = {
+          settings = {
+            formatterMode = 'typstyle',
+            exportPdf = 'never',
+          },
+        },
         -- rust_analyzer = {},
       }
 
