@@ -201,16 +201,16 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+-- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+-- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+-- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
-vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
-vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
-vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
-vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
+-- vim.keymap.set('n', '<C-S-h>', '<C-w>H', { desc = 'Move window to the left' })
+-- vim.keymap.set('n', '<C-S-l>', '<C-w>L', { desc = 'Move window to the right' })
+-- vim.keymap.set('n', '<C-S-j>', '<C-w>J', { desc = 'Move window to the lower' })
+-- vim.keymap.set('n', '<C-S-k>', '<C-w>K', { desc = 'Move window to the upper' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -786,12 +786,6 @@ require('lazy').setup({
         vim.lsp.enable(server_name)
       end
 
-      -- Enable zls
-      local zls_server = servers.zls
-      zls_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, zls_server.capabilities or {})
-      vim.lsp.config('zls', zls_server)
-      vim.lsp.enable 'zls'
-
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -816,6 +810,7 @@ require('lazy').setup({
       ensure_installed = vim.tbl_filter(function(item)
         return item ~= 'zls'
       end, ensure_installed)
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       -- require('mason-lspconfig').setup {
@@ -832,11 +827,6 @@ require('lazy').setup({
       --     end,
       --   },
       -- }
-
-      -- Enable zls
-      -- local zls_server = servers.zls
-      -- zls_server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, zls_server.capabilities or {})
-      -- require('lspconfig')['zls'].setup(zls_server)
     end,
   },
 
@@ -860,7 +850,9 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {
+          -- c = true, cpp = true
+        }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else

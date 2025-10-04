@@ -11,17 +11,9 @@ return {
   },
   lazy = false,
   keys = {
-    { '\\', ':Neotree reveal right<CR>', desc = 'NeoTree reveal', silent = true },
+    { '\\', ':Neotree toggle right<CR>', desc = 'NeoTree reveal', silent = true },
   },
-  opts = {
-    filesystem = {
-      window = {
-        mappings = {
-          ['\\'] = 'close_window',
-        },
-      },
-    },
-  },
+  opts = {},
   config = function(_, opts)
     require('neo-tree').setup(opts)
 
