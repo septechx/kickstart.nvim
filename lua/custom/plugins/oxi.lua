@@ -1,12 +1,15 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      { 'oxilang/tree-sitter-oxi', build = false },
+    },
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
         table.insert(opts.ensure_installed, 'oxi')
       end
     end,
-    config = function(_, _)
+    config = function(_, opts)
       local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
 
       parser_config.oxi = {
@@ -25,6 +28,8 @@ return {
           oxi = 'oxi',
         },
       }
+
+      require('nvim-treesitter.configs').setup(opts)
     end,
   },
 }
