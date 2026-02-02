@@ -880,10 +880,7 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' },
-        providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-        },
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
       },
 
       snippets = { preset = 'luasnip' },
@@ -966,7 +963,30 @@ require('lazy').setup({
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      { 'oxilang/tree-sitter-oxi', build = false },
+    },
+    branch = 'main',
+    lazy = false,
+    build = ':TSUpdate',
     config = function()
+      vim.filetype.add {
+        extension = {
+          oxi = 'oxi',
+        },
+      }
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = ':TSUpdate',
+        callback = function()
+          require('nvim-treesitter.parsers').oxi = {
+            install_info = {
+              url = 'https://github.com/oxilang/tree-sitter-oxi.git',
+            },
+          }
+        end,
+      })
+
       local filetypes = {
         'bash',
         'c',
@@ -982,6 +1002,8 @@ require('lazy').setup({
         'javascript',
         'typescript',
         'tsx',
+        'rust',
+        'oxi',
       }
       require('nvim-treesitter').install(filetypes)
       vim.api.nvim_create_autocmd('FileType', {
