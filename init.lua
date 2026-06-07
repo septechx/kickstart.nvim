@@ -136,6 +136,9 @@ vim.o.smartcase = true
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
+-- Show a colored column at 140 chars as a line length guide
+vim.opt.colorcolumn = '140'
+
 -- Decrease update time
 vim.o.updatetime = 250
 
@@ -919,6 +922,9 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
+
+      -- Use a subtle colored line for the colorcolumn instead of the default block
+      vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#3b4261' })
     end,
   },
 
